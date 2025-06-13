@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>CardFinder</title>
+</head>
+<body>
+  <h1>CardFinder</h1>
+  <form method="post">
+    <input name="query" placeholder="Поиск (напр. футболка)" required>
+    <input name="min_reviews" type="number" value="4" min="0">
+    <input name="max_sellers" type="number" value="3" min="0">
+    <button type="submit">Найти</button>
+  </form>
+  {% if results is not none %}
+    {% if results %}
+      <table border="1">
+        <tr><th>Название</th><th>Цена</th><th>Отзывы</th><th>Продавцы</th><th>Ссылка</th></tr>
+        {% for i in results %}
+          <tr>
+            <td>{{ i.title }}</td>
+            <td>{{ i.price }}</td>
+            <td>{{ i.reviews }}</td>
+            <td>{{ i.sellers }}</td>
+            <td><a href="{{ i.link }}" target="_blank">Перейти</a></td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+      <p>Ничего не найдено</p>
+    {% endif %}
+  {% endif %}
+</body>
+</html>
