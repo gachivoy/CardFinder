@@ -2,19 +2,32 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>CardFinder</title>
+  <title>CardFinder по категории</title>
 </head>
 <body>
-  <h1>CardFinder</h1>
+  <h1>Найти выгодные товары на Kaspi.kz</h1>
   <form method="post">
-    <input name="query" placeholder="Поиск (напр. футболка)" required>
-    <input name="min_reviews" type="number" value="4" min="0">
-    <input name="max_sellers" type="number" value="3" min="0">
+    <label>Категория:</label>
+    <select name="category" required>
+      <option value="https://kaspi.kz/shop/c/home/">Товары для дома</option>
+      <option value="https://kaspi.kz/shop/c/fashion/">Одежда и обувь</option>
+      <option value="https://kaspi.kz/shop/c/electronics/">Электроника</option>
+      <option value="https://kaspi.kz/shop/c/sports/">Спорт и отдых</option>
+    </select><br><br>
+
+    <label>Макс. отзывов:</label>
+    <input name="max_reviews" type="number" value="20" min="0"><br><br>
+
+    <label>Макс. продавцов:</label>
+    <input name="max_sellers" type="number" value="3" min="0"><br><br>
+
     <button type="submit">Найти</button>
   </form>
+
   {% if results is not none %}
     {% if results %}
-      <table border="1">
+      <h2>Найдено {{ results|length }} товаров:</h2>
+      <table border="1" cellpadding="5">
         <tr><th>Название</th><th>Цена</th><th>Отзывы</th><th>Продавцы</th><th>Ссылка</th></tr>
         {% for i in results %}
           <tr>
@@ -22,13 +35,4 @@
             <td>{{ i.price }}</td>
             <td>{{ i.reviews }}</td>
             <td>{{ i.sellers }}</td>
-            <td><a href="{{ i.link }}" target="_blank">Перейти</a></td>
-          </tr>
-        {% endfor %}
-      </table>
-    {% else %}
-      <p>Ничего не найдено</p>
-    {% endif %}
-  {% endif %}
-</body>
-</html>
+            <td>
